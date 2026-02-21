@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Result Portal</title>
 
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f2f2f2;
+}
+
+.result-container{
+    width:400px;
+    margin:120px auto;
+    background:white;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+    border-radius:5px;
+}
+
+.header{
+    background:#0b2c5f;
+    color:white;
+    padding:12px;
+    font-weight:bold;
+}
+
+.content{
+    padding:20px;
+}
+
+input{
+    width:100%;
+    padding:8px;
+    margin-top:8px;
+    margin-bottom:15px;
+}
+
+.captcha-box{
+    display:inline-block;
+    background:#2d3e75;
+    color:white;
+    padding:8px 15px;
+    font-weight:bold;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+button{
+    background:#0a8f3c;
+    color:white;
+    padding:8px 15px;
+    border:none;
+    cursor:pointer;
+    margin-right:5px;
+}
+
+button:hover{
+    background:#087030;
+}
+
+#resultBox{
+    display:none;
+    margin-top:20px;
+    border-top:1px solid #ccc;
+    padding-top:15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="result-container">
+
+<div class="header">
+🔒 View Result
+</div>
+
+<div class="content">
+
+<label>Enter CAPTCHA (case sensitive)</label>
+<input type="text" id="captchaInput" placeholder="Enter captcha">
+
+<div class="captcha-box" id="captchaText"></div>
+<br>
+
+<button onclick="generateCaptcha()">Reload</button>
+<button onclick="checkCaptcha()">Submit</button>
+
+<div id="resultBox">
+    <h3>Your Result</h3>
+    <img src="https://i.ibb.co/YFYGCkV9/In-Shot-20260221-060000993.jpg" width="100%">
+</div>
+
+</div>
+</div>
+
+<script>
+
+let currentCaptcha = "";
+
+function generateCaptcha(){
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    currentCaptcha = "";
+    for(let i=0;i<6;i++){
+        currentCaptcha += chars.charAt(Math.floor(Math.random()*chars.length));
+    }
+    document.getElementById("captchaText").innerText = currentCaptcha;
+}
+
+function checkCaptcha(){
+    let userInput = document.getElementById("captchaInput").value;
+
+    if(userInput === currentCaptcha){
+        document.getElementById("resultBox").style.display = "block";
+    } else {
+        alert("Wrong CAPTCHA! Try again.");
+        generateCaptcha();
+    }
+}
+
+generateCaptcha();
+
+</script>
+
+</body>
+</html>
